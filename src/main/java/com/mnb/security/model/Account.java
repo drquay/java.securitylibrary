@@ -58,8 +58,21 @@ public class Account implements Serializable, Persistable<String> {
             @JoinColumn(name = "permission_id", referencedColumnName = "id"))
     Set<Permission> permissions;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "user_has_roles",
+            joinColumns =
+            @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns =
+            @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    Set<Role> roles;
+
     @Override
     public boolean isNew() {
         return isNew;
+    }
+
+    public Account(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 }
