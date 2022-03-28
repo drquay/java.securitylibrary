@@ -35,7 +35,7 @@ public class Role implements Serializable, Persistable<String> {
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @Column(name = "active", unique = true, nullable = false)
+    @Column(name = "active", nullable = false)
     private boolean active;
 
     @Column(name = "created_on", nullable = false)

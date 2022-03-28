@@ -34,6 +34,7 @@ public class AccountDetails implements UserDetails {
     public static AccountDetails build(Account account) {
         final Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.addAll(account.getRoles().stream()
+                .filter(Role::isActive)
                 .flatMap(role -> role.getPrivileges().stream())
                 .map(permission -> new SimpleGrantedAuthority(permission.getName()))
                 .collect(Collectors.toSet()));

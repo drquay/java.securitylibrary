@@ -19,6 +19,7 @@ import javax.persistence.Transient;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -72,6 +73,11 @@ public class Account implements Serializable, Persistable<String> {
     }
 
     public Account(String username, String password) {
+        this.id = UUID.randomUUID().toString();
+        this.createdOn = LocalDateTime.now();
+        this.createdBy = "SYS";
+        this.blocked = false;
+        this.isNew = true;
         this.username = username;
         this.password = password;
     }

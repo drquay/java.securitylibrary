@@ -24,9 +24,7 @@ public class JwtUtils {
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
-
-        AccountDetails userPrincipal = (AccountDetails) authentication.getPrincipal();
-
+        final AccountDetails userPrincipal = (AccountDetails) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
