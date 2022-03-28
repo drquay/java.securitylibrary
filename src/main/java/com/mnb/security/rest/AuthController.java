@@ -76,12 +76,6 @@ public class AuthController {
           .body(new MessageResponse("Error: Username is already taken!"));
     }
 
-    if (accountRepository.existsByUsername(signUpRequest.getUsername())) {
-      return ResponseEntity
-          .badRequest()
-          .body(new MessageResponse("Error: Email is already in use!"));
-    }
-
     Account user = new Account(signUpRequest.getUsername(), encoder.encode(signUpRequest.getPassword()));
 
     Set<String> strRoles = signUpRequest.getRole();
