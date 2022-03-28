@@ -9,18 +9,20 @@ import org.springframework.data.domain.Persistable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "permissions")
-public class Permission implements Serializable, Persistable<String> {
+@Table(name = "privileges")
+public class Privilege implements Serializable, Persistable<String> {
 
     @Id
     @Column(name = "id", unique = true, nullable = false, updatable = false)
@@ -37,6 +39,12 @@ public class Permission implements Serializable, Persistable<String> {
 
     @Transient
     private boolean isNew;
+
+    @ManyToMany(mappedBy = "privileges")
+    private Set<Role> roles;
+
+    @ManyToMany(mappedBy = "privileges")
+    private Set<Account> accounts;
 
     @Override
     public boolean isNew() {

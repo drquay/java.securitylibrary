@@ -51,12 +51,12 @@ public class Account implements Serializable, Persistable<String> {
     private boolean isNew;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "user_has_permissions",
+    @JoinTable(name = "user_has_privileges",
             joinColumns =
             @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns =
-            @JoinColumn(name = "permission_id", referencedColumnName = "id"))
-    Set<Permission> permissions;
+            @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
+    Set<Privilege> privileges;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "user_has_roles",

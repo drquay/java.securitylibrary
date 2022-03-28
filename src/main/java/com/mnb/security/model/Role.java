@@ -48,12 +48,12 @@ public class Role implements Serializable, Persistable<String> {
     private boolean isNew;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "role_has_permissions",
+    @JoinTable(name = "role_has_privileges",
             joinColumns =
-            @JoinColumn(name = "role_id", referencedColumnName = "id"),
+            @JoinColumn(name = "privilege_id", referencedColumnName = "id"),
             inverseJoinColumns =
             @JoinColumn(name = "permission_id", referencedColumnName = "id"))
-    Set<Permission> permissions;
+    Set<Privilege> privileges;
 
     @Override
     public boolean isNew() {

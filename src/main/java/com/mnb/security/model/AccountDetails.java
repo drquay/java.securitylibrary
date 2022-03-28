@@ -21,8 +21,8 @@ public class AccountDetails implements UserDetails {
     private boolean blocked;
     private Set<? extends GrantedAuthority> authorities;
 
-    public AccountDetails(String id, String username, String password,
-                          boolean blocked,
+    public AccountDetails(String id, String username,
+                          String password, boolean blocked,
                           Set<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
@@ -34,10 +34,10 @@ public class AccountDetails implements UserDetails {
     public static AccountDetails build(Account account) {
         final Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.addAll(account.getRoles().stream()
-                .flatMap(role -> role.getPermissions().stream())
+                .flatMap(role -> role.getPrivileges().stream())
                 .map(permission -> new SimpleGrantedAuthority(permission.getName()))
                 .collect(Collectors.toSet()));
-        authorities.addAll(account.getPermissions().stream()
+        authorities.addAll(account.getPrivileges().stream()
                 .map(permission -> new SimpleGrantedAuthority(permission.getName()))
                 .collect(Collectors.toSet()));
         return new AccountDetails(
@@ -74,7 +74,7 @@ public class AccountDetails implements UserDetails {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        AccountDetails user = (AccountDetails) o;
+        final AccountDetails user = (AccountDetails) o;
         return Objects.equals(id, user.id);
     }
 }
